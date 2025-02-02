@@ -47,6 +47,7 @@ class InputController extends GetxController {
       expression = "0";
       output = "0";
       hasPoint = false;
+      operator.clear();
       update();
       return;
     }
@@ -70,10 +71,11 @@ class InputController extends GetxController {
       operator.add(x);
       hasPoint = false;
       if (x == "=") {
-        List<String> values = expression.split(RegExp(r'[+-]'));
+        List<String> values = expression.split(RegExp(r'[+-/*//]'));
         double curOutput = Operations.performOperation(
             values.first, values.last, operator.first);
         output = curOutput.toString();
+        operator.clear();
         update();
       } else {
         expression += x;
