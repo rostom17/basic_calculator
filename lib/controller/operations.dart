@@ -14,7 +14,7 @@ class Operations {
       case "/":
         return x / y;
       default:
-        return 90.9;
+        return 0.00;
     }
   }
 }

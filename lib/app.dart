@@ -1,4 +1,4 @@
-import 'package:basic_calculator/ui/home_page.dart';
+import 'package:basic_calculator/view/home_page.dart';
 import 'package:flutter/material.dart';
 
 class BasicCalulator extends StatelessWidget {

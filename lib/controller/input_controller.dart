@@ -20,7 +20,7 @@ class InputController extends GetxController {
     "3",
     "+",
     "0",
-    ",",
+    ".",
     "="
   ];
   final List<String> operatorButtons = ['+', '-', '*', '/', '='];
@@ -41,22 +41,36 @@ class InputController extends GetxController {
   String output = "0";
   String expression = "0";
   List<String> operator = [];
+  bool hasPoint = false;
   void input(String x) {
     if (x == "AC") {
       expression = "0";
       output = "0";
+      hasPoint = false;
       update();
       return;
     }
     if (digits.contains(x)) {
       expression += x;
+      if (expression.length == 2 && expression[1] != '.') {
+        expression = removeLeadingZero(expression);
+      }
+      update();
+      return;
+    }
+    if (x == ".") {
+      if (!hasPoint) {
+        expression += x;
+      }
+      hasPoint = true;
       update();
       return;
     }
     if (operatorButtons.contains(x)) {
       operator.add(x);
+      hasPoint = false;
       if (x == "=") {
-        List<String> values = expression.split(RegExp(r'[.,+/\-]'));
+        List<String> values = expression.split(RegExp(r'[+-]'));
         double curOutput = Operations.performOperation(
             values.first, values.last, operator.first);
         output = curOutput.toString();
@@ -66,5 +80,9 @@ class InputController extends GetxController {
         update();
       }
     }
+  }
+
+  String removeLeadingZero(String str) {
+    return str.startsWith('0') ? str.substring(1) : str;
   }
 }
