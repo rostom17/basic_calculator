@@ -1,4 +1,4 @@
-import 'package:basic_calculator/view/styles/outlined_button_style_widget.dart';
+import 'package:basic_calculator/view/styles/outlined_button_style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
