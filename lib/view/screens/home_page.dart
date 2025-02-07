@@ -1,3 +1,4 @@
+import 'package:basic_calculator/view/styles/outlined_button_style_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -64,7 +65,8 @@ class _HomePageState extends State<HomePage> {
       return Padding(
         padding: EdgeInsets.all(7),
         child: OutlinedButton(
-          style: _outlineButtonSytle(screenWidth, screenHeight, items),
+          style: outlineButtonSytle(
+              screenWidth, screenHeight, items, inputController),
           onPressed: () {
             inputController.input(items);
           },
@@ -72,22 +74,5 @@ class _HomePageState extends State<HomePage> {
         ),
       );
     }).toList();
-  }
-
-  ButtonStyle _outlineButtonSytle(
-      double screenWidth, double screenHeight, String buttonName) {
-    return OutlinedButton.styleFrom(
-      textStyle: TextStyle(
-          fontSize: buttonName == "AC" || buttonName == "+/-" ? 22 : 28,
-          fontWeight: FontWeight.bold),
-      fixedSize: buttonName == "0"
-          ? Size(screenWidth * .46, screenHeight / 10.2)
-          : null,
-      backgroundColor: inputController.operatorButtons.contains(buttonName)
-          ? Colors.amber
-          : inputController.firstRowFadeButtons.contains(buttonName)
-              ? Colors.blue.shade500
-              : null,
-    );
   }
 }
