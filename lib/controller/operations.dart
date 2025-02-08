@@ -11,7 +11,7 @@ class Operations {
         return x - y;
       case "*":
         return x * y;
-      case "/":
+      case "÷":
         return x / y;
       default:
         return 0.00;

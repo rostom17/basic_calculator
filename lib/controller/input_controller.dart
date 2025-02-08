@@ -6,7 +6,7 @@ class InputController extends GetxController {
     "AC",
     "+/-",
     "%",
-    "/",
+    "÷",
     "7",
     "8",
     "9",
@@ -23,7 +23,7 @@ class InputController extends GetxController {
     ".",
     "="
   ];
-  final List<String> operatorButtons = ['+', '-', '*', '/', '='];
+  final List<String> operatorButtons = ['+', '-', '*', '÷', '='];
   final List<String> firstRowFadeButtons = ["AC", "+/-", "%"];
   final List<String> digits = [
     '1',
@@ -71,10 +71,10 @@ class InputController extends GetxController {
       operator.add(x);
       hasPoint = false;
       if (x == "=") {
-        List<String> values = expression.split(RegExp(r'[+-/*//]'));
+        List<String> values = expression.split(RegExp(r'[+-/*÷]'));
         double curOutput = Operations.performOperation(
             values.first, values.last, operator.first);
-        output = curOutput.toString();
+        output = formatOutput(curOutput);
         operator.clear();
         update();
       } else {
@@ -86,5 +86,13 @@ class InputController extends GetxController {
 
   String removeLeadingZero(String str) {
     return str.startsWith('0') ? str.substring(1) : str;
+  }
+
+  String formatOutput(double value) {
+    if (value % 1 == 0) {
+      return value.toInt().toString();
+    } else {
+      return value.toStringAsFixed(2);
+    }
   }
 }
