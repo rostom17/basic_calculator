@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 class InputController extends GetxController {
   final List<String> buttonIcons = [
     "AC",
-    "+/-",
+    "⌫",
     "%",
     "÷",
     "7",
@@ -23,8 +23,11 @@ class InputController extends GetxController {
     ".",
     "="
   ];
-  final List<String> operatorButtons = ['+', '-', '*', '÷', '='];
-  final List<String> firstRowFadeButtons = ["AC", "+/-", "%"];
+  final List<String> operatorButtons = ['+', '-', '*', '÷', '%', '='];
+  final List<String> firstRowFadeButtons = [
+    "AC",
+    "⌫",
+  ];
   final List<String> digits = [
     '1',
     '2',
@@ -51,6 +54,20 @@ class InputController extends GetxController {
       update();
       return;
     }
+    if (x == "⌫") {
+      if (expression == "0") {
+        return;
+      }
+      if (expression.length == 1) {
+        expression = "0";
+        update();
+        return;
+      } else {
+        expression = expression.substring(0, expression.length - 1);
+        update();
+        return;
+      }
+    }
     if (digits.contains(x)) {
       expression += x;
       if (expression.length == 2 && expression[1] != '.') {
@@ -71,7 +88,10 @@ class InputController extends GetxController {
       operator.add(x);
       hasPoint = false;
       if (x == "=") {
-        List<String> values = expression.split(RegExp(r'[+-/*÷]'));
+        List<String> values = expression.split(RegExp(r"[%÷*+-]"));
+        print("\n\n");
+        print("\n\n\n$values\n\n\n");
+        print("\n\n");
         double curOutput = Operations.performOperation(
             values.first, values.last, operator.first);
         output = formatOutput(curOutput);

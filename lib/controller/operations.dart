@@ -13,6 +13,8 @@ class Operations {
         return x * y;
       case "÷":
         return x / y;
+      case "%":
+        return x / 100;
       default:
         return 0.00;
     }
